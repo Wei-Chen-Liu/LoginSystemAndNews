@@ -23,9 +23,6 @@ namespace LoginSystemAndNews.Controllers
         {
             memberDB.Members.FirstOrDefault();
 
-
-
-
             return View();
         }
     }

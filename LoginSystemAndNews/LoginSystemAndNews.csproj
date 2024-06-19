@@ -215,6 +215,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SqlConnectHelper.cs" />
     <Compile Include="Interfaces\IDataRepositoryAndServices.cs" />
     <Compile Include="MIgrations\Members\Configuration.cs" />
     <Compile Include="Models\LoginTimeLog.cs" />

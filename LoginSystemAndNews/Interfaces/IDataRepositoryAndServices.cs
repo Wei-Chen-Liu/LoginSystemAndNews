@@ -15,7 +15,9 @@ namespace LoginSystemAndNews.Interfaces
     public interface ILoginTimeRepository
     {
         IEnumerable<LoginTimeLog> GetAll();
-        void Add(LoginTimeLog loginTimeLog);
+        void AddLoginTime(LoginTimeLog loginTimeLog);
+
+        void UpdateLogoutTime(LoginTimeLog loginTimeLog);
     }
 
     public interface IMemberService
@@ -23,7 +25,7 @@ namespace LoginSystemAndNews.Interfaces
         IEnumerable<Member> GetAllMember();
         Member GetMemberByAccount(string account);
         void AddMember(Member member);
-        void UpdateMember(Member member);
+        void UpdateMemberPassword(Member member);
         void DeleteMember(string account);
     }
 
@@ -31,5 +33,7 @@ namespace LoginSystemAndNews.Interfaces
     {
         IEnumerable<LoginTimeLog> GetAllLoginTimeLog();
         void AddLoginTimeLog(LoginTimeLog loginTimeLog);
+
+        void UpdateLogoutTimeLog(LoginTimeLog loginTimeLog);
     }
 }

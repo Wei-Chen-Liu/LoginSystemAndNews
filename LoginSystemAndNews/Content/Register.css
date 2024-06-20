@@ -1,0 +1,19 @@
+.register-forget-btn {
+    border: none;
+    border-radius: 6px;
+    background-color: #01814A;
+    color: white;
+    width: 150px;
+    margin-right:0px;
+    padding: 5px;
+    text-align:center;
+}
+
+.sign-in-btn {
+    border: none;
+    background-color: white;
+    color: #01814A;
+    width: auto;
+    padding: 5px;
+    text-align: left;
+}

@@ -10,18 +10,73 @@ namespace LoginSystemAndNews.Controllers
 {
     public class MemberController : Controller
     {
-        MembersDBContext memberDB = new MembersDBContext();
         private readonly IMemberService _memberService;
+        private readonly ILoginTimeLogService _loginTimeLogService;
 
-        public MemberController(IMemberService memberService)
+        public MemberController(IMemberService memberService, ILoginTimeLogService loginTimeLogService)
         {
             _memberService = memberService;
+            _loginTimeLogService = loginTimeLogService;
         }
 
 
         public ActionResult Index()
         {
-            memberDB.Members.FirstOrDefault();
+            return View();
+        }
+
+        public ActionResult SignIn()
+        {
+            if (_memberService != null)
+            {
+                
+
+
+
+                return View();
+            }
+
+            return View();
+        }
+
+        public ActionResult Register()
+        {
+            if (_memberService != null)
+            {
+
+
+
+
+                return View();
+            }
+
+            return View();
+        }
+
+        public ActionResult ForgetPassword()
+        {
+            if (_memberService != null)
+            {
+
+
+
+
+                return View();
+            }
+
+            return View();
+        }
+
+        public ActionResult ResetPassword()
+        {
+            if (_memberService != null)
+            {
+
+
+
+
+                return View();
+            }
 
             return View();
         }

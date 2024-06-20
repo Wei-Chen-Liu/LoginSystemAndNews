@@ -1,24 +1,42 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<link href="~/Content/Index.css" rel="stylesheet" />
+
+<main>
+    <div class="header-main-pic">
+        <img src="~/Pictures/IndexMainPicture.jpg" />
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+    <div class="news-box">
+        <nav>
+            <div class="nav nav-tabs" id="news-box-tab" role="tablist">
+                <button class="news-btn nav-link active" id="latest-news-tab" data-bs-toggle="tab" data-bs-target="#latest-news" type="button" role="tab" aria-controls="latest-news" aria-selected="true">最新消息</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="news-box-tabContent">
+            <div class="tab-pane fade show active" id="latest-news" role="tabpanel" aria-labelledby="latest-news-tab">
+                <div class="each-news-box">
+                    <div>
+                        <div class="each-news">
+                            <div class="news-date">
+                                2024-06-19 12:00
+                            </div>
+                            <div class="news-title">
+                                <a href="#">
+                                    Test News
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-more-btn">
+                        <a href="#">
+                            MORE
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+</main>

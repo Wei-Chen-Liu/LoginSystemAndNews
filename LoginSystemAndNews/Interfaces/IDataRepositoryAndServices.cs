@@ -27,6 +27,8 @@ namespace LoginSystemAndNews.Interfaces
         void AddMember(Member member);
         void UpdateMemberPassword(Member member);
         void DeleteMember(string account);
+
+        Member HashPassword(string password, string accountSalt = "");
     }
 
     public interface ILoginTimeLogService

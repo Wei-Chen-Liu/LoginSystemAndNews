@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+
+<link href="~/Content/Member.css" rel="stylesheet" />
+<link href="~/Content/Register.css" rel="stylesheet" />
+
+<main>
+    <div class="member-page">
+        <div class="title">註冊會員</div>
+        <div class="member-input-area">
+            <div class="each-title">帳號</div>
+            <input class="account-input form-control" value="" name="account-input" placeholder="請輸入帳號" />
+            <p class="err-message" id="account-err"></p>
+            <div class="each-title">密碼</div>
+            <input class="password-input form-control" value="" name="password-input" placeholder="請輸入密碼" />
+            <p class="err-message" id="password-err"></p>
+            <div class="each-title">姓名</div>
+            <input class="password-input form-control" value="" name="name-input" placeholder="請輸入姓名" />
+            <p class="err-message" id="name-err"></p>
+            <div class="each-title">Email</div>
+            <input class="email-input form-control" value="" name="email-input" placeholder="請輸入Email" />
+            <p class="err-message" id="email-err"></p>
+        </div>
+        <div class="member-btn-area">
+            <button class="sign-in-btn" onclick="location.href='@Url.Action("SignIn", "Member")'">
+                登入
+            </button>
+            <button class="register-forget-btn">
+                註冊
+            </button>
+        </div>
+    </div>
+</main>

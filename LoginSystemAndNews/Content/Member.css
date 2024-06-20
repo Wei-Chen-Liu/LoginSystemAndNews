@@ -1,0 +1,57 @@
+.member-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    max-width: 700px;
+    border: 2px solid #01814A;
+    border-radius: 12px;
+    background-color: white;
+    margin-top: 90px;
+    padding: 30px 35px;
+    font-size: 18px;
+    color: #6C6C6C;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.member-input-area{
+    width:90%;
+    margin-top:25px;
+}
+
+.err-message{
+    color:red;
+}
+
+
+/*button*/
+.member-btn-area {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 30px;
+}
+
+.sign-in-btn {
+    border: none;
+    border-radius: 6px;
+    background-color: #01814A;
+    color: white;
+    width: 150px;
+    padding: 5px;
+}
+
+.register-forget-btn {
+    border: none;
+    background-color: white;
+    color: #01814A;
+    width: auto;
+    padding: 5px;
+    margin-right:50px;
+    text-align:left;
+}

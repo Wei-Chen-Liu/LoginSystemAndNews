@@ -1,7 +1,7 @@
-﻿[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebTest.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebTest.App_Start.NinjectWebCommon), "Stop")]
+﻿[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(LoginSystemAndNews.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(LoginSystemAndNews.App_Start.NinjectWebCommon), "Stop")]
 
-namespace WebTest.App_Start
+namespace LoginSystemAndNews.App_Start
 {
     using System;
     using System.Web;
@@ -12,6 +12,7 @@ namespace WebTest.App_Start
     using LoginSystemAndNews.DataAccess;
     using LoginSystemAndNews.BusinessLogic;
     using Ninject.Web.Common.WebHost;
+    using LoginSystemAndNews.Controllers;
 
     public static class NinjectWebCommon
     {
@@ -48,10 +49,14 @@ namespace WebTest.App_Start
 
         private static void RegisterServices(IKernel kernel)
         {
+
             kernel.Bind<IMemberRepository>().To<MemberRepository>();
             kernel.Bind<ILoginTimeRepository>().To<LoginTimeLogRepository>();
             kernel.Bind<IMemberService>().To<MemberService>();
             kernel.Bind<ILoginTimeLogService>().To<LoginTimeLogService>();
+
+            kernel.Bind<MemberController>().ToSelf().InRequestScope();
+            kernel.Bind<HomeController>().ToSelf().InRequestScope();
         }
     }
 }

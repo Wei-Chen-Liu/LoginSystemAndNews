@@ -9,11 +9,11 @@ namespace LoginSystemAndNews.DataAccess
 {
     public class LoginTimeLogRepository : ILoginTimeRepository
     {
-        SqlConnectHelper sqlConnectHelper = new SqlConnectHelper();
         public IEnumerable<LoginTimeLog> GetAll()
         {
             SQLiteConnection m_dbConnection = new SQLiteConnection();
-            sqlConnectHelper.ConnectToDatabase(m_dbConnection);
+            m_dbConnection = new SQLiteConnection("Data Source=|DataDirectory|MembersDB.db; version=3;");
+            m_dbConnection.Open();
 
             string sql = "SELECT * from LoginTimeLog";
             List<LoginTimeLog> loginTimeLogList = new List<LoginTimeLog>();
@@ -31,7 +31,7 @@ namespace LoginSystemAndNews.DataAccess
                 loginTimeLogList.Add(loginTimeLog);
             }
 
-            sqlConnectHelper.DatabaseClose(m_dbConnection);
+            m_dbConnection.Close();
 
 
             return loginTimeLogList;
@@ -40,31 +40,33 @@ namespace LoginSystemAndNews.DataAccess
         public void AddLoginTime(LoginTimeLog loginTimeLog)
         {
             SQLiteConnection m_dbConnection = new SQLiteConnection();
-            sqlConnectHelper.ConnectToDatabase(m_dbConnection);
+            m_dbConnection = new SQLiteConnection("Data Source=|DataDirectory|MembersDB.db; version=3;");
+            m_dbConnection.Open();
 
             string sql = "INSERT INTO LoginTimeLog(Account, LoginTime, LogoutTime) VALUES (@Account, @LoginTime, @LogoutTime)";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.Parameters.AddWithValue("@Account", loginTimeLog.Account);
             command.Parameters.AddWithValue("@LoginTime", DateTime.Now);
             command.Parameters.AddWithValue("@LogoutTime", null);
-            command.ExecuteReader();
+            command.ExecuteNonQuery();
 
-            sqlConnectHelper.DatabaseClose(m_dbConnection);
+            m_dbConnection.Close();
         }
 
         public void UpdateLogoutTime(LoginTimeLog loginTimeLog)
         {
             SQLiteConnection m_dbConnection = new SQLiteConnection();
-            sqlConnectHelper.ConnectToDatabase(m_dbConnection);
+            m_dbConnection = new SQLiteConnection("Data Source=|DataDirectory|MembersDB.db; version=3;");
+            m_dbConnection.Open();
 
             string sql = "UPDATE LoginTimeLog SET LogoutTime = @LogoutTime WHERE Account = @Account AND LoginTime = @LoginTime";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.Parameters.AddWithValue("@Account", loginTimeLog.Account);
             command.Parameters.AddWithValue("@LoginTime", loginTimeLog.LoginTime);
             command.Parameters.AddWithValue("@LogoutTime", DateTime.Now);
-            command.ExecuteReader();
+            command.ExecuteNonQuery();
 
-            sqlConnectHelper.DatabaseClose(m_dbConnection);
+            m_dbConnection.Close();
         }
 
     }

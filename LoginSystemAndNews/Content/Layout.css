@@ -1,0 +1,144 @@
+/*Font Style*/
+@import url(GoogleFontStyle.css);
+
+body {
+    font-family: 'Noto Sans TC', '·L³n¥¿¶ÂÅé', sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f4f5;
+    min-height: 1100px;
+}
+
+/*navbar*/
+.navbar {
+    padding: 25px 0px !important;
+}
+
+.first-navbar {
+    border-bottom: 1px solid #01814A;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+a.logo-link:hover {
+    color: black;
+}
+
+.logo-link .title {
+    padding-left: 8px;
+}
+
+.logo-zh-cn {
+    font-size: 18px;
+}
+
+.logo-en {
+    font-size: 14px;
+}
+
+.login {
+    display: flex;
+}
+
+.home-signin-btn {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #01814A;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .home-signin-btn:hover {
+        color: #53A589;
+    }
+
+    .home-signin-btn i {
+        font-size: 27px;
+        margin-right: 3px;
+    }
+
+    .home-signin-btn:first-child {
+        margin-right: 40px;
+    }
+
+/*menu*/
+.menu-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-box {
+    justify-content: center !important;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+}
+
+    .menu a, .about {
+        text-decoration: none;
+        color: #6C6C6C;
+    }
+
+        .menu a:hover, .menu .about:hover {
+            background-color: #01814A;
+            color: white;
+        }
+
+.menu-btn, .menu-second-btn {
+    padding: 18px 50px;
+    font-size: 18px;
+}
+
+.about {
+    position: relative;
+}
+
+    .about:hover .about-list {
+        height: 190px;
+    }
+
+.about-list {
+    position: absolute;
+    overflow: hidden;
+    height: 0;
+    transition-duration: .5s;
+    width: 100%;
+    padding-left: 0px;
+    z-index: 3;
+}
+
+.menu-second-btn {
+    background-color: white;
+}
+
+    .menu-second-btn:hover {
+        background-color: #f3f4f5;
+        color: #636363;
+    }
+
+/*Footer*/
+.footer {
+    background-color: #01814A;
+    padding: 2.5rem 0;
+}
+
+.copy-right {
+    font-size: 18px;
+    text-decoration:none;
+}
+
+

@@ -39,10 +39,12 @@ a.logo-link:hover {
 
 .logo-zh-cn {
     font-size: 18px;
+    font-weight:500;
 }
 
 .logo-en {
     font-size: 14px;
+    font-weight: 500;
 }
 
 .login {

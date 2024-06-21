@@ -52,8 +52,10 @@ namespace LoginSystemAndNews.App_Start
 
             kernel.Bind<IMemberRepository>().To<MemberRepository>();
             kernel.Bind<ILoginTimeRepository>().To<LoginTimeLogRepository>();
+            kernel.Bind<INewsRepository>().To<NewsRepository>();
             kernel.Bind<IMemberService>().To<MemberService>();
             kernel.Bind<ILoginTimeLogService>().To<LoginTimeLogService>();
+            kernel.Bind<INewsService>().To<NewsService>();
 
             kernel.Bind<MemberController>().ToSelf().InRequestScope();
             kernel.Bind<HomeController>().ToSelf().InRequestScope();

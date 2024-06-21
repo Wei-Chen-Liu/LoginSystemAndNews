@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "News";
+}
+
+<link href="~/Content/EachNews.css" rel="stylesheet" />
+
+<main>
+    <div class="header-main-pic">
+    </div>
+
+    <div class="News">
+        <div class="news">
+            <div class="news-box">
+                <div class="eachNews-box">
+                    <div class="each-new-title">
+                        @ViewBag.allNewsData.Title
+                    </div>
+                    <div class="news-information">
+                        <div class="news-type">@ViewBag.allNewsData.Category</div>
+                        <div class="publish-date">@ViewBag.allNewsData.Date</div>
+                    </div>
+                    <div class="news-para">@Html.Raw(ViewBag.allNewsData.Content)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

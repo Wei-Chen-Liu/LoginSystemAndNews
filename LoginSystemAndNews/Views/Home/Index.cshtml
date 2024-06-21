@@ -19,24 +19,135 @@
             <div class="tab-pane fade show active" id="latest-news" role="tabpanel" aria-labelledby="latest-news-tab">
                 <div class="each-news-box">
                     <div>
-                        <div class="each-news">
-                            <div class="news-date">
-                                2024-06-19 12:00
+                        @foreach (var news in ViewBag.allNewsData)
+                        {
+                            <div class="each-news">
+                                <div class="news-category">
+                                    @news.Category
+                                </div>
+                                <div class="news-date">
+                                    @news.Date.ToString("yyyy-MM-dd HH:mm")
+                                </div>
+                                <div class="news-title">
+                                    <a href="@Url.Action("EachNews", "Home")?newsId=@news.Id">
+                                        @news.Title
+                                    </a>
+                                </div>
                             </div>
-                            <div class="news-title">
-                                <a href="#">
-                                    Test News
-                                </a>
-                            </div>
-                        </div>
+                        }
                     </div>
-                    <div class="news-more-btn">
-                        <a href="#">
-                            MORE
+                    <div class="add-news-btn" hidden="hidden" id="add-news-btn">
+                        <a data-bs-toggle="modal" data-bs-target="#add-news">
+                            新增最新消息
                         </a>
+                    </div>
+                    <div class="modal fade" id="add-news" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-news" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            @using (Html.BeginForm("AddNews", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "addNews" }))
+                            {
+                                <form>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">新增最新消息</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="news-title">新聞標題</div>
+                                            <input type="text" class="news-title-input" name="news-title-input" id="news-title-input" placeholder="請輸入新聞標題" />
+                                            <p class="err-message" id="news-title-input-err"></p>
+                                            <div class="news-title">新聞類別</div>
+                                            <select name="category" id="category" required>
+                                                <option selected disabled>請選擇新聞類別</option>
+                                                <option>公告消息</option>
+                                                <option>活動消息</option>
+                                            </select>
+                                            <p class="err-message" id="category-err"></p>
+                                            <div class="news-title">新聞內容</div>
+                                            <textarea class="news-content-input" name="news-content-input" id="news-content-input" rows="10" cols="55" placeholder="請輸入新聞內容，可使用<div>、</br>標籤進行換行，<strong>標籤進行加粗"></textarea>
+                                            <p class="err-message" id="news-content-input-err"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                            <button type="submit" class="btn add-news-action">新增</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+<script>
+
+    $(document).ready(function (e) {
+
+        AddNews();
+
+    })
+
+
+    function AddNews() {
+
+        let titleErrors = 1;
+        let categoryErrors = 1;
+        let contentErrors = 1;
+        let form = $("#addNews");
+
+        $("#news-title-input").on("input", function () {
+
+            inputValue = $("#news-title-input").val();
+            if (inputValue == "" || inputValue == null) {
+                $("#news-title-input-err")[0].innerText = "請輸入新聞標題";
+                titleErrors = 1;
+            } else {
+                $("#news-title-input-err")[0].innerText = "";
+                titleErrors = 0;
+            }
+
+        })
+
+        $("#news-content-input").on("input", function () {
+
+            inputValue = $("#news-content-input").val();
+            console.log(inputValue)
+            if (inputValue == "" || inputValue == null) {
+                $("#news-content-input-err")[0].innerText = "請輸入新聞內容";
+                contentErrors = 1;
+            } else {
+                $("#news-content-input-err")[0].innerText = "";
+                contentErrors = 0;
+            }
+
+        })
+
+        form.on("submit", function(e) {
+
+            e.preventDefault();
+            titleValue = $("#news-title-input").val();
+            categoryValue = $("#category").val();
+            contentValue = $("#news-content-input").val();
+
+            if (categoryValue != "公告消息" && categoryValue != "活動消息") {
+                $("#category-err")[0].innerText = "請選擇新聞類別";
+                categoryErrors = 1;
+            } else {
+                $("#category-err")[0].innerText = "";
+                categoryErrors = 0;
+            }
+
+            if (titleErrors == 0 && contentErrors == 0 && categoryErrors == 0 && getCookie(".ASPXAUTH")) {
+
+                if (window.confirm("是否確認新增?")) {
+                    form[0].submit();
+                }
+
+            } else {
+                alert("請進行登入再使用新增消息功能!")
+            }
+        });
+
+    }
+</script>

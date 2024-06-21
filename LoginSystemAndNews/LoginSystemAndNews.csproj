@@ -235,6 +235,7 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataAccess\NewsRepository.cs" />
     <Compile Include="DataAccess\LoginTimeLogRepository.cs" />
     <Compile Include="DataAccess\MemberRepository.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,7 +244,10 @@
     <Compile Include="Helpers\MemberHelper.cs" />
     <Compile Include="Helpers\SqlConnectHelper.cs" />
     <Compile Include="Interfaces\IDataRepositoryAndServices.cs" />
+    <Compile Include="MIgrations\News\Configuration.cs" />
     <Compile Include="MIgrations\Members\Configuration.cs" />
+    <Compile Include="Models\NewsDBContext.cs" />
+    <Compile Include="Models\News.cs" />
     <Compile Include="Models\LoginTimeLog.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MembersDBContext.cs" />
@@ -2306,6 +2310,7 @@
     <Content Include="Content\bootstrap-icons-1.11.3\zoom-out.svg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\GoogleFontStyle.css" />
+    <Content Include="Content\EachNews.css" />
     <Content Include="Content\ResetPassword.css" />
     <Content Include="Content\Register.css" />
     <Content Include="Content\ForgetPassword.css" />
@@ -2317,7 +2322,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Pictures\205.JPG" />
     <Content Include="Pictures\IndexMainPicture.jpg" />
+    <Content Include="Pictures\markus-winkler-aId-xYRTlEc-unsplash.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -2359,9 +2366,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
@@ -2375,11 +2380,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MembersDB.db" />
+    <Content Include="App_Data\NewsDB.db" />
     <None Include="packages.config" />
     <Content Include="Views\Member\SignIn.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\ForgetPassword.cshtml" />
     <Content Include="Views\Member\ResetPassword.cshtml" />
+    <Content Include="Views\Home\EachNews.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2399,7 +2407,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64610</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44385/</IISUrl>
+          <IISUrl>http://localhost:44385/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

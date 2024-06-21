@@ -18,6 +18,9 @@
                     <div class="each-title">密碼</div>
                     <input type="password" class="password-input form-control" name="password-input" id="password-input" placeholder="請輸入密碼" />
                     <p class="err-message" id="password-err"></p>
+                    <div class="each-title">再次輸入密碼</div>
+                    <input type="password" class="password-input-re form-control" value="" name="password-input-re" id="password-input-re" placeholder="請再次輸入密碼" />
+                    <p class="err-message" id="password-input-re-err"></p>
                     <div class="each-title">姓名</div>
                     <input type="text" class="password-input form-control" name="name-input" id="name-input" placeholder="請輸入姓名" />
                     <p class="err-message" id="name-err"></p>
@@ -50,6 +53,7 @@
 
         let accountErrors = 1;
         let passwordErrors = 1;
+        let rePasswordErrors = 1;
         let nameErrors = 1;
         let emailErrors = 1;
         let form = $("#memberDataForm");
@@ -76,6 +80,20 @@
             } else {
                 $("#password-err")[0].innerText = "";
                 passwordErrors = 0;
+            }
+
+        })
+
+        $("#password-input-re").on("input", function () {
+
+            newPassword = $("#password-input").val();
+            inputValue = $("#password-input-re").val();
+            if (newPassword != inputValue) {
+                $("#password-input-re-err")[0].innerText = "密碼輸入不相同，請重新輸入";
+                rePasswordErrors = 1;
+            } else {
+                $("#password-input-re-err")[0].innerText = "";
+                rePasswordErrors = 0;
             }
 
         })
@@ -112,7 +130,7 @@
             accountValue = $("#account-input").val();
             emailValue = $("#email-input").val();
 
-            if (accountErrors == 0 && passwordErrors == 0 && nameErrors == 0 && emailErrors == 0) {
+            if (accountErrors == 0 && passwordErrors == 0 && rePasswordErrors == 0 && nameErrors == 0 && emailErrors == 0) {
 
                 $.ajax({
                     type: "POST",
@@ -120,7 +138,7 @@
                     data: "",
                     success: function (result) {
                         if (result == "OK") {
-
+                            alert("帳號創建完成，請直接登入")
                             form[0].submit();
                         }
                         else {
@@ -133,33 +151,6 @@
                 })
             }
         });
-
-
-
-        $("#register-forget-btn").click(function (e) {
-
-            accountValue = $("#account-input").val();
-            passwordValue = $("#account-input").val();
-
-
-            if (accountErrors == 0 && passwordErrors == 0 && nameErrors == 0 && emailErrors == 0) {
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("MemberCheck")?account=" + accountValue + "&&password=" + passwordValue,
-                    data: "",
-                    success: function (result) {
-                        if (result == "OK")
-                            location.href = "@Url.Action("Index", "Home")";
-                        else
-                            alert(result);
-                    },
-                    error: function (err) {
-                        alert(err);
-                    }
-                })
-            }
-
-        })
 
     }
 </script>

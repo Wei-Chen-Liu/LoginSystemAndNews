@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net;
 using System.Web.Security;
+using System.Data.SQLite;
 
 namespace LoginSystemAndNews.Controllers
 {
@@ -76,7 +77,7 @@ namespace LoginSystemAndNews.Controllers
                     //設定單值
                     cookieAccount.Value = Uri.EscapeDataString(member.Account);
                     cookieName.Value = Uri.EscapeDataString(member.Name);
-                    loginTime.Value = nowTime.ToString("yyyy/MM/dd HH:mm:ss.fffffff");
+                    loginTime.Value = nowTime.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
 
                     //設定過期日
                     cookieAccount.Expires = DateTime.Now.AddHours(2);
@@ -137,6 +138,24 @@ namespace LoginSystemAndNews.Controllers
             }
 
         }
+
+        [HttpPost]
+        public string MemberResetCheck(string email)
+        {
+
+            Member member = _memberService.GetMemberByEmail(email);
+
+            if (member.Email == null)
+            {
+                return "查無此Email創建之帳號";
+            }
+            else
+            {
+                return "OK";
+            }
+            
+        }
+
         public ActionResult MemberRegist(FormCollection formData)
         {
 
@@ -212,6 +231,21 @@ namespace LoginSystemAndNews.Controllers
             _loginTimeLogService.UpdateLogoutTimeLog(loginTimeLog);
 
             return "OK";
+        }
+
+        [HttpPost]
+        public string SignInOrNot()
+        {
+            HttpCookie accountCookie = Request.Cookies["Account"];
+            HttpCookie loginTime = Request.Cookies["Login_time"];
+
+            if(accountCookie != null && accountCookie.Value != "" && loginTime != null && loginTime.Value != "")
+            {
+               return _loginTimeLogService.LoginOrNot(accountCookie.Value, loginTime.Value);
+            }
+            
+
+            return "帳號未登入";
         }
     }
 }

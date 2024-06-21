@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using LoginSystemAndNews.Models.News;
 
 namespace LoginSystemAndNews.BusinessLogic
 {
@@ -29,6 +30,11 @@ namespace LoginSystemAndNews.BusinessLogic
         public Member GetMemberByAccountOrEmail(string account, string email)
         {
             return _memberRepository.GetByAccountOrEmail(account, email);
+        }
+
+        public Member GetMemberByEmail(string email)
+        {
+            return _memberRepository.GetByEmail(email);
         }
 
         public void AddMember(Member member)
@@ -114,6 +120,48 @@ namespace LoginSystemAndNews.BusinessLogic
         public void UpdateLogoutTimeLog(LoginTimeLog loginTimeLog)
         {
             _loginTimeLogRepository.UpdateLogoutTime(loginTimeLog);
+        }
+
+        public string LoginOrNot(string account, string loginTime)
+        {
+            LoginTimeLog loginTimeLog = _loginTimeLogRepository.LoginOrNot(account, loginTime);
+
+            if (loginTimeLog != null)
+            {
+                return "OK";
+            }
+            return "帳號未登入";
+        }
+    }
+
+    public class NewsService : INewsService
+    {
+        private readonly INewsRepository _newsRepository;
+
+        public NewsService(INewsRepository newsRepository)
+        {
+            _newsRepository = newsRepository;
+        }
+
+
+        public IEnumerable<News> GetAllNews()
+        {
+            return _newsRepository.GetAll();
+        }
+
+        public News GetNewsById(int id)
+        {
+            return _newsRepository.GetById(id);
+        }
+
+        public void AddNews(News news)
+        {
+            _newsRepository.AddNews(news);
+        }
+
+        public void DeleteNews(int id)
+        {
+            _newsRepository.DeleteNews(id);
         }
     }
 }

@@ -33,23 +33,12 @@
                     <a class="home-signin-btn" href="@Url.Action("Index", "Home")"><i class="bi bi-house-door-fill"></i>HOME</a>
                     <a class="home-signin-btn" id="signin-btn" href="@Url.Action("SignIn", "Member")"><i class="bi bi-person-lock"></i>SIGN IN</a>
                     <div class="sign-out-area" id="sign-out-area" hidden="hidden">
-                        <div class="sign-out-btn-text" id="sign-out-btn-text"><i class="bi bi-person-lock"></i></div>
+                        <div class="sign-out-btn-text" id="sign-out-btn-text"></div>
                         <a class="sign-out-btn" id="sign-out-btn">登出</a>
                     </div>
                 </div>
             </div>
         </nav>
-        @*<nav class="menu-nav">
-            <div class="menu-box container">
-                <div class="menu">
-                    <a href="@Url.Action("News", "Home")?result=0">
-                        <div class="menu-btn" id="news">
-                            最新消息
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </nav>*@
     </div>
     <div>
         @RenderBody()
@@ -77,14 +66,27 @@
     }
 
     $(document).ready(function (e) {
-
-        if (getCookie(".ASPXAUTH")) {
-            $("#signin-btn").attr("hidden", "hidden");
-            $("#sign-out-area").removeAttr("hidden");
-            $("#sign-out-btn-text")[0].innerHTML = `<i class="bi bi-person-lock"></i>` + decodeURIComponent(getCookie("Name"));
-        }
-
+        SignInOrNot();
     })
+
+    function SignInOrNot() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SignInOrNot", "Member")",
+            data: "",
+            success: function (result) {
+                if (result == "OK") {
+                    $("#signin-btn").attr("hidden", "hidden");
+                    $("#sign-out-area").removeAttr("hidden");
+                    $("#sign-out-btn-text")[0].innerHTML = `<i class="bi bi-person-lock"></i>` + decodeURIComponent(getCookie("Name"));
+                    $("#add-news-btn").removeAttr("hidden");
+                }
+            },
+            error: function (err) {
+                alert(err);
+            }
+        })
+    }
 
     $("#sign-out-btn").click(function (e) {
         $.ajax({

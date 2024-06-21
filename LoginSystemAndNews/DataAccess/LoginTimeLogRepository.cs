@@ -69,5 +69,29 @@ namespace LoginSystemAndNews.DataAccess
             m_dbConnection.Close();
         }
 
+        public LoginTimeLog LoginOrNot(string account, string loginTime)
+        {
+            SQLiteConnection m_dbConnection = new SQLiteConnection();
+            m_dbConnection = new SQLiteConnection("Data Source=|DataDirectory|MembersDB.db; version=3;");
+            m_dbConnection.Open();
+
+            string sql = "SELECT * from LoginTimeLogs where Account=@Account AND LoginTime = @LoginTime";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            command.Parameters.AddWithValue("@Account", account);
+            command.Parameters.AddWithValue("@LoginTime", loginTime);
+            SQLiteDataReader reader = command.ExecuteReader();
+            LoginTimeLog loginTimeLog = new LoginTimeLog();
+            while (reader.Read())
+            {
+                loginTimeLog.Account = reader["Account"].ToString();
+                loginTimeLog.LoginTime = (DateTime?)reader["LoginTime"];
+            }
+
+            m_dbConnection.Close();
+
+
+            return loginTimeLog;
+        }
+
     }
 }

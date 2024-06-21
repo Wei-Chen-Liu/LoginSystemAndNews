@@ -1,3 +1,9 @@
+form#memberDataForm {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .register-forget-btn {
     border: none;
     border-radius: 6px;
@@ -17,3 +23,4 @@
     padding: 5px;
     text-align: left;
 }
+

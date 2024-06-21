@@ -49,7 +49,7 @@ a.logo-link:hover {
     display: flex;
 }
 
-.home-signin-btn {
+.home-signin-btn, .sign-out-btn, .sign-out-btn-text {
     display: flex;
     align-items: center;
     font-size: 17px;
@@ -59,11 +59,11 @@ a.logo-link:hover {
     text-decoration: none;
 }
 
-    .home-signin-btn:hover {
+    .home-signin-btn:hover, .sign-out-btn:hover {
         color: #53A589;
     }
 
-    .home-signin-btn i {
+    .home-signin-btn i, .sign-out-btn-text i {
         font-size: 27px;
         margin-right: 3px;
     }
@@ -72,6 +72,14 @@ a.logo-link:hover {
         margin-right: 40px;
     }
 
+.sign-out-area{
+    display:flex;
+}
+
+.sign-out-btn-text {
+    margin-right: 20px;
+    cursor: default;
+}
 /*menu*/
 .menu-nav {
     display: flex;

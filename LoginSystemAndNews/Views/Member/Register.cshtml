@@ -6,29 +6,160 @@
 <link href="~/Content/Register.css" rel="stylesheet" />
 
 <main>
-    <div class="member-page">
-        <div class="title">註冊會員</div>
-        <div class="member-input-area">
-            <div class="each-title">帳號</div>
-            <input class="account-input form-control" value="" name="account-input" placeholder="請輸入帳號" />
-            <p class="err-message" id="account-err"></p>
-            <div class="each-title">密碼</div>
-            <input class="password-input form-control" value="" name="password-input" placeholder="請輸入密碼" />
-            <p class="err-message" id="password-err"></p>
-            <div class="each-title">姓名</div>
-            <input class="password-input form-control" value="" name="name-input" placeholder="請輸入姓名" />
-            <p class="err-message" id="name-err"></p>
-            <div class="each-title">Email</div>
-            <input class="email-input form-control" value="" name="email-input" placeholder="請輸入Email" />
-            <p class="err-message" id="email-err"></p>
-        </div>
-        <div class="member-btn-area">
-            <button class="sign-in-btn" onclick="location.href='@Url.Action("SignIn", "Member")'">
-                登入
-            </button>
-            <button class="register-forget-btn">
-                註冊
-            </button>
-        </div>
-    </div>
+    @using (Html.BeginForm("MemberRegist", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memberDataForm" }))
+    {
+        <form>
+            <div class="member-page">
+                <div class="title">註冊會員</div>
+                <div class="member-input-area">
+                    <div class="each-title">帳號</div>
+                    <input type="text" class="account-input form-control" name="account-input" id="account-input" placeholder="請輸入帳號" />
+                    <p class="err-message" id="account-err"></p>
+                    <div class="each-title">密碼</div>
+                    <input type="password" class="password-input form-control" name="password-input" id="password-input" placeholder="請輸入密碼" />
+                    <p class="err-message" id="password-err"></p>
+                    <div class="each-title">姓名</div>
+                    <input type="text" class="password-input form-control" name="name-input" id="name-input" placeholder="請輸入姓名" />
+                    <p class="err-message" id="name-err"></p>
+                    <div class="each-title">Email</div>
+                    <input type="email" class="email-input form-control" name="email-input" id="email-input" placeholder="請輸入Email" />
+                    <p class="err-message" id="email-err"></p>
+                </div>
+                <div class="member-btn-area">
+                    <button class="sign-in-btn" onclick="location.href='@Url.Action("SignIn", "Member")'">
+                        登入
+                    </button>
+                    <button class="register-forget-btn" type="submit">
+                        註冊
+                    </button>
+                </div>
+            </div>
+        </form>
+    }
 </main>
+
+<script>
+    $(document).ready(function (e) {
+
+        Register();
+
+    })
+
+
+    function Register() {
+
+        let accountErrors = 1;
+        let passwordErrors = 1;
+        let nameErrors = 1;
+        let emailErrors = 1;
+        let form = $("#memberDataForm");
+
+        $("#account-input").on("input", function () {
+
+            inputValue = $("#account-input").val();
+            if (!inputValue.match(/^[A-Za-z0-9]{6,20}$/)) {
+                $("#account-err")[0].innerText = "帳號格式錯誤!（請輸入6碼至20碼的大小寫英文或數字）";
+                accountErrors = 1;
+            } else {
+                $("#account-err")[0].innerText = "";
+                accountErrors = 0;
+            }
+
+        })
+
+        $("#password-input").on("input", function () {
+
+            inputValue = $("#password-input").val();
+            if (!inputValue.match(/^[A-Za-z0-9]{6,20}$/)) {
+                $("#password-err")[0].innerText = "密碼格式錯誤（請輸入6碼至20碼的大小寫英文或數字）";
+                passwordErrors = 1;
+            } else {
+                $("#password-err")[0].innerText = "";
+                passwordErrors = 0;
+            }
+
+        })
+
+        $("#name-input").on("input", function () {
+
+            inputValue = $("#name-input").val();
+            if (inputValue == "") {
+                $("#name-err")[0].innerText = "請輸入姓名";
+                nameErrors = 1;
+            } else {
+                $("#name-err")[0].innerText = "";
+                nameErrors = 0;
+            }
+
+        })
+
+        $("#email-input").on("input", function () {
+
+            inputValue = $("#email-input").val();
+            if (!inputValue.match(/^[a-z0-9]+([._]*[a-z0-9]+)*@@[a-z0-9]+([_.][a-z0-9]+)+$/gi)) {
+                $("#email-err")[0].innerText = "Email 格式錯誤，請重新輸入";
+                emailErrors = 1;
+            } else {
+                $("#email-err")[0].innerText = "";
+                emailErrors = 0;
+            }
+
+        })
+
+        form.on("submit", function(e) {
+
+            e.preventDefault();
+            accountValue = $("#account-input").val();
+            emailValue = $("#email-input").val();
+
+            if (accountErrors == 0 && passwordErrors == 0 && nameErrors == 0 && emailErrors == 0) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("MemberRegistCheck")?account=" + accountValue + "&&email=" + emailValue,
+                    data: "",
+                    success: function (result) {
+                        if (result == "OK") {
+
+                            form[0].submit();
+                        }
+                        else {
+                            alert(result)
+                        }
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                })
+            }
+        });
+
+
+
+        $("#register-forget-btn").click(function (e) {
+
+            accountValue = $("#account-input").val();
+            passwordValue = $("#account-input").val();
+
+
+            if (accountErrors == 0 && passwordErrors == 0 && nameErrors == 0 && emailErrors == 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("MemberCheck")?account=" + accountValue + "&&password=" + passwordValue,
+                    data: "",
+                    success: function (result) {
+                        if (result == "OK")
+                            location.href = "@Url.Action("Index", "Home")";
+                        else
+                            alert(result);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                })
+            }
+
+        })
+
+    }
+</script>

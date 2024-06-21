@@ -7,6 +7,7 @@ namespace LoginSystemAndNews.Interfaces
     {
         IEnumerable<Member> GetAll();
         Member GetByAccount(string account);
+        Member GetByAccountOrEmail(string account, string email);
         void Add(Member member);
         void Update(Member member);
         void Delete(string account);
@@ -24,6 +25,7 @@ namespace LoginSystemAndNews.Interfaces
     {
         IEnumerable<Member> GetAllMember();
         Member GetMemberByAccount(string account);
+        Member GetMemberByAccountOrEmail(string account, string email);
         void AddMember(Member member);
         void UpdateMemberPassword(Member member);
         void DeleteMember(string account);

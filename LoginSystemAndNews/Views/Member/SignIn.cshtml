@@ -9,9 +9,9 @@
     <div class="member-page">
         <div class="title">登入會員</div>
         <div class="member-input-area">
-            <input class="account-input form-control" value="" name="account-input" placeholder="請輸入帳號"/>
+            <input type="text" class="account-input form-control" name="account-input" id="account-input" placeholder="請輸入帳號" />
             <p class="err-message" id="account-err"></p>
-            <input class="password-input form-control" value="" name="password-input" placeholder="請輸入密碼"/>
+            <input type="password" class="password-input form-control" name="password-input" id="password-input" placeholder="請輸入密碼" />
             <p class="err-message" id="password-err"></p>
         </div>
         <div class="member-btn-area">
@@ -23,9 +23,78 @@
                     忘記密碼
                 </button>
             </div>
-            <button class="sign-in-btn">
+            <button class="sign-in-btn" id="sign-in-btn">
                 登入
             </button>
         </div>
     </div>
 </main>
+<script>
+
+    $(document).ready(function (e) {
+
+        SignIn();
+
+    })
+
+
+    function SignIn() {
+
+        let accountErrors = 1;
+        let passwordErrors = 1;
+
+        $("#account-input").on("input", function () {
+
+            inputValue = $("#account-input").val();
+            if (!inputValue.match(/^[A-Za-z0-9]{6,20}$/)) {
+                $("#account-err")[0].innerText = "帳號格式錯誤!（請輸入6碼至20碼的大小寫英文或數字）";
+                accountErrors = 1;
+            } else {
+                $("#account-err")[0].innerText = "";
+                accountErrors = 0;
+            }
+
+        })
+
+        $("#password-input").on("input", function () {
+
+            inputValue = $("#password-input").val();
+            if (!inputValue.match(/^[A-Za-z0-9]{6,20}$/)) {
+                $("#password-err")[0].innerText = "密碼格式錯誤!（請輸入6碼至20碼的大小寫英文或數字）";
+                passwordErrors = 1;
+            } else {
+                $("#password-err")[0].innerText = "";
+                passwordErrors = 0;
+            }
+
+        })
+
+        $("#sign-in-btn").click(function (e) {
+
+            accountValue = $("#account-input").val();
+            passwordValue = $("#password-input").val();
+
+
+            if (accountErrors == 0 && passwordErrors == 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("MemberCheck")?account=" + accountValue + "&&password=" + passwordValue,
+                    data: "",
+                    success: function (result) {
+                        if (result == "OK")
+                            location.href = "@Url.Action("Index", "Home")";
+                        else
+                            alert(result);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                })
+            }
+
+        })
+
+    }
+
+
+</script>

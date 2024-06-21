@@ -31,11 +31,15 @@
                 </div>
                 <div class="login">
                     <a class="home-signin-btn" href="@Url.Action("Index", "Home")"><i class="bi bi-house-door-fill"></i>HOME</a>
-                    <a class="home-signin-btn" href="@Url.Action("SignIn", "Member")"><i class="bi bi-person-lock"></i>SIGN IN</a>
+                    <a class="home-signin-btn" id="signin-btn" href="@Url.Action("SignIn", "Member")"><i class="bi bi-person-lock"></i>SIGN IN</a>
+                    <div class="sign-out-area" id="sign-out-area" hidden="hidden">
+                        <div class="sign-out-btn-text" id="sign-out-btn-text"><i class="bi bi-person-lock"></i></div>
+                        <a class="sign-out-btn" id="sign-out-btn">登出</a>
+                    </div>
                 </div>
             </div>
         </nav>
-        <nav class="menu-nav">
+        @*<nav class="menu-nav">
             <div class="menu-box container">
                 <div class="menu">
                     <a href="@Url.Action("News", "Home")?result=0">
@@ -43,34 +47,13 @@
                             最新消息
                         </div>
                     </a>
-                    <div class="about" href="#">
-                        <div class="menu-btn" id="news">
-                            有關於我
-                        </div>
-                        <ul class="about-list">
-                            <li>
-                                <a href="@Url.Action("AboutAlliance", "Home")?result=0">
-                                    <div class="menu-second-btn">
-                                        自我介紹
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("AllianceCharter", "Home")">
-                                    <div class="menu-second-btn">
-                                        產學經歷
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
-        </nav>
+        </nav>*@
     </div>
     <div>
         @RenderBody()
-        
+
         <footer class="footer mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
@@ -85,3 +68,38 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    $(document).ready(function (e) {
+
+        if (getCookie(".ASPXAUTH")) {
+            $("#signin-btn").attr("hidden", "hidden");
+            $("#sign-out-area").removeAttr("hidden");
+            $("#sign-out-btn-text")[0].innerHTML = `<i class="bi bi-person-lock"></i>` + decodeURIComponent(getCookie("Name"));
+        }
+
+    })
+
+    $("#sign-out-btn").click(function (e) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SignOut", "Member")",
+            data: "",
+            success: function (result) {
+                location.href = "@Url.Action("Index", "Home")";
+            },
+            error: function (err) {
+                alert(err);
+            }
+
+        })
+    })
+
+
+</script>

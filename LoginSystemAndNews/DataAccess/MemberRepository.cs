@@ -71,6 +71,34 @@ namespace LoginSystemAndNews.DataAccess
             return memberData;
         }
 
+        public Member GetByAccountOrEmail(string account, string email)
+        {
+            SQLiteConnection m_dbConnection = new SQLiteConnection();
+            m_dbConnection = new SQLiteConnection("Data Source=|DataDirectory|MembersDB.db; version=3;");
+            m_dbConnection.Open();
+
+            string sql = "SELECT * from Members where Account=@Account OR Email=@Email";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            command.Parameters.AddWithValue("@Account", account);
+            command.Parameters.AddWithValue("@Email", email);
+            SQLiteDataReader reader = command.ExecuteReader();
+            Member memberData = new Member();
+            while (reader.Read())
+            {
+                memberData.Account = reader["Account"].ToString();
+                memberData.Password = reader["Password"].ToString();
+                memberData.Name = reader["Name"].ToString();
+                memberData.Email = reader["Email"].ToString();
+                memberData.IsAdmin = reader["IsAdmin"].ToString();
+                memberData.Salt = reader["Salt"].ToString();
+                memberData.RegistTime = (DateTime?)reader["RegistTime"];
+            }
+
+            m_dbConnection.Close();
+
+            return memberData;
+        }
+
         public void Add(Member member)
         {
             SQLiteConnection m_dbConnection = new SQLiteConnection();

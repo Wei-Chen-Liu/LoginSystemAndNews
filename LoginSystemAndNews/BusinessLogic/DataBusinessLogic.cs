@@ -26,6 +26,11 @@ namespace LoginSystemAndNews.BusinessLogic
             return _memberRepository.GetByAccount(account);
         }
 
+        public Member GetMemberByAccountOrEmail(string account, string email)
+        {
+            return _memberRepository.GetByAccountOrEmail(account, email);
+        }
+
         public void AddMember(Member member)
         {
             Member passordAndSalt = HashPassword(member.Password);
